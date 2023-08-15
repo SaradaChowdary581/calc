@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  margin: 0;
+}
+
+.calculator {
+  background-color: #333;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#display {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 24px;
+  text-align: right;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #777;
+}
+
+button.operator {
+  background-color: #f39c12;
+}
+
+button.operator:hover {
+  background-color: #f1c40f;
+}
+
+
+</style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator">/</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator">*</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operator">-</button>
+      <button class="number">0</button>
+      <button class="operator">.</button>
+      <button id="equals" class="operator">=</button>
+      <button class="operator">+</button>
+      <button id="clear">C</button>
+    </div>
+  </div>
+  <script>
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll("button");
+let currentExpression = "";
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const value = button.textContent;
+    if (value === "=") {
+      try {
+        const result = eval(currentExpression);
+        display.value = result;
+        currentExpression = result.toString();
+      } catch (error) {
+        display.value = "Error";
+        currentExpression = "";
+      }
+    } else if (value === "C") {
+      display.value = "";
+      currentExpression = "";
+    } else {
+      display.value += value;
+      currentExpression += value;
+    }
+  });
+});
+
+</script>
+</body>
+</html>
